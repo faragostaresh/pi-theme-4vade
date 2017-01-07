@@ -1,0 +1,307 @@
+<?php
+// Load translation data
+$this->i18nTheme('default');
+
+//HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries
+$this->js(array(
+    pi::url('static/js/html5shiv.js') => array(
+        'conditional' => 'lt IE 9'
+    ),
+    pi::url('static/js/respond.min.js') => array(
+        'conditional' => 'lt IE 9'
+    ),
+));
+
+// Load jQuery
+$this->jquery();
+
+// Load Bootstrap css/js and font-awesome
+$this->bootstrap(array(
+    'js/bootstrap.min.js',
+    'font-awesome/css/font-awesome.min.css'
+));
+
+// Load front.css
+$this->css(array(
+    $this->assetLocale('style.css'),
+    $this->assetTheme('css/front.css'),
+));
+
+// Apple icons
+// Apple icon for iphone
+$this->headLink(array(
+    'rel'   => 'apple-touch-icon',
+    'href'  => $this->assetTheme('image/touch-icon-iphone.png')
+));
+// Apple icon for ipad
+$this->headLink(array(
+    'rel'   => 'apple-touch-icon',
+    'sizes' => '72x72',
+    'href'  => $this->assetTheme('image/touch-icon-ipad.png')
+));
+// Apple icon for iphone retina
+$this->headLink(array(
+    'rel'   => 'apple-touch-icon',
+    'sizes' => '114x114',
+    'href'  => $this->assetTheme('image/touch-icon-iphone-retina.png')
+));
+// Apple icon for ipad retina
+$this->headLink(array(
+    'rel'   => 'apple-touch-icon',
+    'sizes' => '114x114',
+    'href'  => $this->assetTheme('image/touch-icon-ipad-retina.png')
+));
+
+// Meta http-equiv
+//$this->headMeta('IE=edge', 'X-UA-Compatible', 'http-equiv', array('conditional' => 'IE'));
+
+// Meta Viewport Tag
+$this->headMeta('width=device-width, initial-scale=1.0', 'viewport');
+
+// Explicitly load favicon
+$this->headLink(array(
+    'rel'   => 'shortcut icon',
+    'href'  => $this->favicon(),
+));
+
+// Load google analytics code
+$this->ga();
+
+// current module
+$module = Pi::service('module')->current();
+
+// Load nav
+$navigation = $this->nav('front');
+
+// Load blocks
+$blocks = $this->blocks();
+$blockTemplate = $this->template('block');
+?>
+<!DOCTYPE HTML>
+<html lang="<?php echo $locale; ?>">
+<head>
+<meta charset="<?php echo $charset; ?>">
+<?php echo $this->assemble('headTitle'); ?>
+<?php echo $this->assemble('headMeta'); ?>
+<meta property="dc:title" lang="<?php echo $locale; ?>" content="<?php echo $this->escape($sitename); ?>">
+<meta property="dc:publisher" content="<?php echo $this->escape($sitename); ?>">
+<meta property="dc:subject" lang="<?php echo $locale; ?>" content="<?php echo $this->escape($slogan); ?>">
+<meta property="dc:description" lang="<?php echo $locale; ?>" content="وب سایت ۴وعده ارائه دهنده تخفیف خرید از انواع رستوران ، فست فود ، کافی شاپ و مراکز فعال در حوزه خوراکی و نوشیدنی در تهران و سایر شهرهای ایران">
+<meta property="dc:type" content="Text">
+<meta property="dc:language" content="<?php echo $locale; ?>">
+<?php echo $this->assemble('headLink'); ?>
+<?php echo $this->assemble('headStyle'); ?>
+<?php echo $this->assemble('headScript'); ?>
+</head>
+<body id="pi-<?php echo $module; ?>" class="pi-locale-<?php echo $locale; ?>">
+<div id="enamad">
+    <iframe width="125" scrolling="no" height="140" frameborder="0" style="margin: 0;
+        padding: 0; border: 1px" temp_src="http://enamad.ir/trustseal/symbol.aspx" src="http://enamad.ir/trustseal/symbol.aspx">
+    </iframe>
+</div>
+    <!-- Header: brand, slogan, user bar -->
+    <header class="pi-header">
+        <div class="container">
+            <div class="row">
+                <div class="pi-header-logo col-md-6">
+                    <h1><a title="<?php echo _escape($sitename); ?>" href="<?php echo $this->url('home'); ?>"><img src="<?php echo $this->logo(); ?>" alt="<?php echo _escape($sitename); ?>"></a></h1>
+                </div>
+                <div class="col-md-6 hidden-xs">
+                    <div class="pi-header-user"><?php echo $this->widget('system-user-bar', array('type' => 'flat')); ?></div>
+                    <div class="pi-header-social hidden-xs">
+                        <div class="pi-header-social-text clearfix">
+                            <span>به ما بپیوندید</span>
+                        </div>
+                        <ul class="list-unstyled list-inline">
+                            <li><a title="خوراک" href="http://www.4vade.com/feed/discount"><img src="<?php echo $this->assetTheme('image/feed.png') ?>" alt="خوراک" /></a></li>
+                            <li><a title="گوگل پلاس" href="https://plus.google.com/u/0/106189255799390918745"><img src="<?php echo $this->assetTheme('image/gplus.png') ?>" alt="گوگل پلاس" /></a></li>
+                            <li><a title="فیسبوک" href="https://www.facebook.com/4vade"><img src="<?php echo $this->assetTheme('image/facebook.png') ?>" alt="فیسبوک" /></a></li>
+                            <li><a title="تویتر" href="https://twitter.com/4vade"><img src="<?php echo $this->assetTheme('image/twitter.png') ?>" alt="تویتر" /></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="container pi-main-container">
+        <!--[if IE]>
+        <div class="alert alert-danger">
+            <h4 class="alert-heading">خطا در نمایش وب سایت</h4>
+            <p>مرورگر اینترنت شما قدیمی است و از تکنولوژی های جدید وب پشتیبانی نمی کند. برای استفاده از این وب سایت مرورگر خود را به روز کنید.</p>
+            <p>شما میتوانید از مرورگر های <a title="فایرفاکس" href="http://www.mozilla.org/en-US/firefox/new/" >فایرفاکس</a> یا <a title="گوگل کروم" href="http://www.google.com/chrome">گوگل کروم</a> یا آخرین نسخه <a title="اینترنت اکسپلورر" href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">اینترنت اکسپلورر</a> استفاده نمایید.</p>
+        </div>
+        <![endif]--> 
+        <!-- Navbar -->
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse">
+                <?php echo $navigation->menu()->setUlClass('nav navbar-nav pi-navbar-nav'); ?>
+                <form action="<?php echo $this->url('home'); ?>discount/search/quick" method="post" id="pi-module-search" class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input type="text" name="vendor" class="form-control input-sm" placeholder="جستجو رستوران و ...">
+                    </div>
+                    <button type="submit" class="btn btn-default btn-sm"><i class="fa fa-search"></i></button>
+                    <span id="pi-module-search-pro"><a title="جستجوی پیشرفته" href="<?php echo $this->url('home'); ?>discount/search"><img src="<?php echo $this->assetTheme('image/icon-search.png') ?>" alt="جستجوی پیشرفته" /></a></span>
+                </form>
+            </div>
+        </nav>
+        <!-- Flash messenger -->
+        <?php include $this->template('flash-messenger'); ?>
+        <!-- Top head zone -->
+        <?php if (!empty($blocks['0'])) { ?>
+        <div class="pi-zone-0 hidden-xs">
+            <?php foreach ($blocks['0'] as $block) {
+                include $blockTemplate;
+            } ?>
+        </div>
+        <?php } ?>
+        <div class="row">
+            <!-- Left zone -->
+            <?php if (!empty($blocks['1'])) { ?>
+            <div class="pi-zone-1 col-md-3">
+                <?php foreach ($blocks['1'] as $block) {
+                    include $blockTemplate;
+                } ?>
+            </div>
+            <?php } ?>
+            <div class="<?php
+                if (isset($blocks['1']) && isset($blocks['8'])) {
+                    echo 'col-md-6';
+                } elseif (isset($blocks['1']) || isset($blocks['8'])) {
+                    echo 'col-md-9';
+                } else {
+                    echo 'col-md-12';
+                }
+                ?>">
+                <!-- Center top zone -->
+                <?php if (isset($blocks['2'])) { ?>
+                <div class="pi-zone-2">
+                    <?php foreach ($blocks['2'] as $block) {
+                        include $blockTemplate;
+                    } ?>
+                </div>
+                <?php } ?>
+                <?php if (isset($blocks['3']) || isset($blocks['4'])) { ?>
+                <div class="row">
+                    <div class="col-md-6 pi-zone-3">
+                        <?php
+                        if (isset($blocks['3'])) { 
+                            foreach ($blocks['3'] as $block) {
+                                include $blockTemplate;
+                            }
+                        } 
+                        ?>
+                    </div>
+                    <div class="col-md-6 pi-zone-4">
+                        <?php
+                        if (isset($blocks['4'])) { 
+                            foreach ($blocks['4'] as $block) {
+                                include $blockTemplate;
+                            }
+                        } 
+                        ?>
+                    </div>
+                </div>
+                <?php } ?>
+                <!-- Module content starts -->
+                <?php if (!empty($content)) { ?>
+                <div class="pi-module-content">
+                    <?php echo $content; ?>
+                </div>
+                <?php //echo Pi::service('comment')->load(array('options' => array('type' => 'js'))); ?>
+                <?php } ?>
+                <!-- Module content ends -->
+                <?php if (isset($blocks['5']) || isset($blocks['6'])) { ?>
+                <div class="row pi-bottom-center-block">
+                    <div class="col-md-4 pi-zone-5">
+                        <?php
+                        if (isset($blocks['5'])) { 
+                            foreach ($blocks['5'] as $block) {
+                                include $blockTemplate;
+                            }
+                        } 
+                        ?>
+                    </div>
+                    <div class="col-md-4 pi-zone-6">
+                        <?php
+                        if (isset($blocks['6'])) { 
+                            foreach ($blocks['6'] as $block) {
+                                include $blockTemplate;
+                            }
+                        } 
+                        ?>
+                    </div>
+                    <div class="col-md-4 pi-zone-7">
+                        <?php
+                        if (isset($blocks['7'])) { 
+                            foreach ($blocks['7'] as $block) {
+                                include $blockTemplate;
+                            }
+                        } 
+                        ?>
+                    </div>
+                </div>
+                <?php } ?>
+            </div>
+            <!-- Right zone -->
+            <?php if (isset($blocks['8'])) { ?>
+            <div class="col-md-3 pi-zone-8">
+                <?php foreach ($blocks['8'] as $block) {
+                    include $blockTemplate;
+                } ?>
+            </div>
+            <?php } ?>
+        </div>
+        <!-- Bottom foot zone -->
+        <?php if (isset($blocks['99'])) { ?>
+        <div class="pi-zone-99">
+            <?php foreach ($blocks['99'] as $block) {
+                include $blockTemplate;
+            } ?>
+        </div>
+        <?php } ?>
+    </section>
+    <footer class="pi-footer">
+        <div class="container pi-footer-container">
+            <div class="row">
+                <div class="clearfix footer-content">
+                    <div class="col-md-4">
+                        <h3>۴وعده</h3>
+                        <ul class="list-unstyled">
+                        	<li><a title="وبلاگ ۴وعده" href="http://www.4vade.com/blog">وبلاگ ۴وعده</a></li>
+                            <li><a title="درباره ۴وعده" href="http://www.4vade.com/page/about">درباره ۴وعده</a></li>
+                            <li><a title="همکاری با ما" href="http://www.4vade.com/discount/applicant/marketer"> همکاری با ما</a></li>
+                            <li><a title="پیوستن به ما" href="http://www.4vade.com/discount/applicant/collaboration">پیوستن به ما</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 footer-content footer-border">
+                        <h3>تماس</h3>
+                        <ul class="list-unstyled">
+                            <li><a title="ارتباط با ۴وعده" href="http://www.4vade.com/contact">ارتباط با ۴وعده</a></li>
+                            <li><a title="پیشنهاد بدهید" href="http://www.4vade.com/page/suggestion/">پیشنهاد بدهید</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 footer-content footer-border">
+                        <h3>راهنما</h3>
+                        <ul class="list-unstyled">
+                            <li><a title="قوانین ۴وعده" href="http://www.4vade.com/page/rule/">قوانین ۴وعده</a></li>
+                            <li><a title="سوالات متداول" href="http://www.4vade.com/page/faq/">سوالات متداول</a></li>
+                            <li><a title="راهنمای پرداخت آنلاین" href="http://www.4vade.com/page/guide-to-online-payments/">راهنمای پرداخت آنلاین</a></li>
+                            <li><a title="راهنمای استفاده از ۴وعده" href="http://www.4vade.com/page/help/">راهنمای استفاده از ۴وعده</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clearfix pi-footer-copyright">
+                     <div class="col-md-6 text-right">تمام حقوق مادی و معنوی برای وب سایت <a title="۴وعده" href="http://www.4vade.com">۴وعده</a> محفوظ است.</div>
+                     <div class="col-md-6 text-left">طراحی توسط <a title="عرش دیزاین" href="http://www.arshdesign.ir/">عرش دیزاین</a> و توسعه توسط <a title="فراگسترش" href="http://www.faragostaresh.com/">فراگسترش</a></div>
+                </div>
+            </div> 
+        </div>    
+    </footer>
+    <?php echo $this->assemble('footScript', 4); ?>
+</body>
+</html>

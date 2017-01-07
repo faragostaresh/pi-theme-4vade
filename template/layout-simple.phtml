@@ -1,0 +1,106 @@
+<?php
+// Load translation data
+$this->i18nTheme('default', '4vade');
+//HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries
+$this->js(array(
+    pi::url('static/js/html5shiv.js') => array(
+        'conditional' => 'lt IE 9'
+    ),
+    pi::url('static/js/respond.min.js') => array(
+        'conditional' => 'lt IE 9'
+    ),
+));
+// Load Bootstrap css, bootstrapjs, font awesome, auto load jquery
+$this->bootstrap(array(
+    'js/bootstrap.min.js',
+    'font-awesome/css/font-awesome.min.css',
+));
+// Load front.css
+$this->css(array(
+    $this->assetLocale('style.css'),
+    $this->assetTheme('css/simple.css'),
+));
+// Print css
+$this->css(
+    $this->assetTheme('css/print.css'),
+    array('media' => "print")
+);
+// Apple icon for iphone
+$this->headLink(array(
+    'rel'   => 'apple-touch-icon',
+    'href'  => $this->assetTheme('image/touch-icon-iphone.png')
+), 'PREPEND');
+// Apple icon for ipad
+$this->headLink(array(
+    'rel'   => 'apple-touch-icon',
+    'sizes' => '72x72',
+    'href'  => $this->assetTheme('image/touch-icon-ipad.png')
+), 'PREPEND');
+// Apple icon for iphone retina
+$this->headLink(array(
+    'rel'   => 'apple-touch-icon',
+    'sizes' => '114x114',
+    'href'  => $this->assetTheme('image/touch-icon-iphone-retina.png')
+), 'PREPEND');
+// Apple icon for ipad retina
+$this->headLink(array(
+    'rel'   => 'apple-touch-icon',
+    'sizes' => '114x114',
+    'href'  => $this->assetTheme('image/touch-icon-ipad-retina.png')
+), 'PREPEND');
+// Meta Viewport Tag
+$this->headMeta('width=device-width, initial-scale=1.0', 'viewport');
+// Meta http-equiv
+$this->headMeta('IE=edge', 'X-UA-Compatible', 'http-equiv', array('conditional' => 'IE'));
+// Explicitly load favicon
+$this->headLink(array(
+    'rel'   => 'shortcut icon',
+    'href'  => $this->favicon(),
+));
+// Dublin Core relation
+$this->headLink(array(
+        'rel'   => 'DC.relation',
+        'href'  => Pi::url('www')),
+        'PREPEND');
+// Dublin Core language relation
+$this->headLink(array(
+        'rel'   => 'DC.relation',
+        'hreflang'  => $locale,
+        'href'  => Pi::url('www')),
+        'PREPEND');
+
+// Load nav
+$navigation = $this->nav('front');
+?>
+<!DOCTYPE HTML>
+<html lang="<?php echo $locale ?>">
+<head>
+    <meta charset="<?php echo $charset; ?>">
+</head>
+<body id="pi-<?php echo Pi::service('module')->current(); ?>" class="pi-locale-<?php echo $locale; ?>">
+
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse">
+            <div class="container">
+                <div class="col-md-2"></div>
+                <div class="col-md-8"><?php echo $navigation->menu()->setUlClass('nav navbar-nav pi-navbar-nav'); ?></div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container pi-main-container">
+        <?php include $this->template('flash-messenger'); ?>
+        <?php if (!empty($content)) { ?>
+            <div class="col-md-2"></div>
+            <div class="pi-module-content col-md-8"><?php echo $content; ?></div>
+            <div class="col-md-2"></div>
+        <?php } ?>
+    </div>
+</body>
+</html>
